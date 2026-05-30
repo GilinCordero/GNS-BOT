@@ -1,0 +1,4 @@
+# Arquitecture Selection:
+
+- Monolith
+- 
