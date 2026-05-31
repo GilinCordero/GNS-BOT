@@ -1,3 +1,7 @@
-.env
-
 node_modules/
+.env
+*.log
+.DS_Store
+widget/dist/widget.js
+.nvmrc
+ISP_CHATBOT_SPEC_FINAL.md

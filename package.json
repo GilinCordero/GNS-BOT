@@ -1,29 +1,29 @@
 {
-  "name": "gns-chatbot",
+  "name": "isp-chatbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "11.1.0",
-      "onFail": "download"
-    }
-  },
   "type": "module",
+  "engines": { "node": ">=20.0.0" },
+  "scripts": {
+    "dev":          "node --watch src/server.js",
+    "start":        "node src/server.js",
+    "build:widget": "esbuild widget/src/index.js --bundle --minify --outfile=widget/dist/widget.js --format=iife --global-name=ISPChatWidget --platform=browser --target=es2020",
+    "build":        "npm run build:widget",
+    "pm2:start":    "pm2 start ecosystem.config.cjs",
+    "pm2:reload":   "pm2 reload isp-chatbot",
+    "pm2:stop":     "pm2 stop isp-chatbot",
+    "pm2:logs":     "pm2 logs isp-chatbot"
+  },
   "dependencies": {
-    "@google/genai": "^2.0.1",
-    "axios": "^1.16.1",
-    "dotenv": "^17.4.2",
-    "fastify": "^5.8.5"
+    "@fastify/cors":       "^10.0.0",
+    "@fastify/rate-limit": "^10.0.0",
+    "@google/genai":       "^1.0.0",
+    "axios":               "^1.7.0",
+    "dotenv":              "^16.0.0",
+    "fastify":             "^5.0.0",
+    "node-cache":          "^5.1.2",
+    "uuid":                "^11.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "esbuild": "^0.24.0"
   }
 }

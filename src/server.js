@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import fastify from 'fastify';
+import Fastify from 'fastify';
 
 //Import routes
 
@@ -7,7 +7,7 @@ import fastify from 'fastify';
 dotenv.config();
 
 // Create Fastify instance
-const fastify = fastify({ logger: true });
+const fastify = Fastify({ logger: true });
 
 //Register routes
 
