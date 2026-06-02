@@ -3,5 +3,6 @@ node_modules/
 *.log
 .DS_Store
 widget/dist/widget.js
-.nvmrc
+
+.nvmrcgit 
 ISP_CHATBOT_SPEC_FINAL.md
