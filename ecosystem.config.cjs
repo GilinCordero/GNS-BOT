@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name:       'isp-chatbot',
+    name:       'gns-chatbot',
     script:     'src/server.js',
     instances:  1,           // fork — OBLIGATORIO con node-cache in-process
     exec_mode:  'fork',

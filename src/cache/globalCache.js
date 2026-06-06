@@ -1,3 +1,9 @@
+/**
+ * Global in-memory cache for categories and customers.
+ * Uses node-cache with TTL to automatically refresh data from ISP service.
+ * Provides functions to get cached data, which will fetch fresh data if cache is expired.
+ */
+
 import NodeCache from 'node-cache'
 import { CATEGORIES_TTL_SECONDS, CUSTOMERS_TTL_SECONDS } from '../config/env.js'
 import { getCategories, getAllCustomers } from '../services/ispService.js'

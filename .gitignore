@@ -4,5 +4,7 @@ node_modules/
 .DS_Store
 widget/dist/widget.js
 
-.nvmrcgit 
+.nvmrc
 ISP_CHATBOT_SPEC_FINAL.md
+
+APP_FLOW.md

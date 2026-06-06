@@ -8,7 +8,7 @@ export function createApiClient(apiUrl) {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...(sessionId ? { 'X-Session-Id': sessionId } : {}),
+        ...(sessionId ? { 'X-Session-Id': sessionId } : {}), //Session management
         ...options.headers,
       },
     })

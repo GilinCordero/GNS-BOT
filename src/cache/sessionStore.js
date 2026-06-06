@@ -5,7 +5,7 @@ const store = new NodeCache({ stdTTL: SESSION_TTL_SECONDS, checkperiod: 120, use
 
 const key = (id) => `session:${id}`
 
-export const setSession     = (id, data) => store.set(key(id), data)
-export const getSession     = (id)       => store.get(key(id)) ?? null
-export const deleteSession  = (id)       => store.del(key(id))
-export const refreshSession = (id)       => store.ttl(key(id), SESSION_TTL_SECONDS)
+export const setSession = (id, data) => store.set(key(id), data)
+export const getSession = (id) => store.get(key(id)) ?? null
+export const deleteSession  = (id) => store.del(key(id))
+export const refreshSession = (id) => store.ttl(key(id), SESSION_TTL_SECONDS)

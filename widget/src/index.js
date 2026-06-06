@@ -4,15 +4,15 @@ import { createUI } from './ui.js'
 const ISPChatWidget = {
   init(config = {}) {
     const { apiUrl, theme, position, agentName } = config
-    if (!apiUrl) throw new Error('ISPChatWidget: apiUrl es requerido')
+    if (!apiUrl) throw new Error('GNSChatWidget: apiUrl es requerido')
 
     // Remove existing widget if any
-    const existing = document.getElementById('isp-chat-shadow-host')
+    const existing = document.getElementById('gns-chat-shadow-host')
     if (existing) existing.remove()
 
     // Create shadow host
     const host = document.createElement('div')
-    host.id = 'isp-chat-shadow-host'
+    host.id = 'gns-chat-shadow-host'
     document.body.appendChild(host)
 
     const shadow = host.attachShadow({ mode: 'open' })

@@ -1,9 +1,10 @@
 FROM node:20-alpine
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install -g pnpm
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm ci --prod
 COPY . .
-RUN npm run build:widget
+RUN pnpm run build:widget
 EXPOSE 3000
 USER node
 CMD ["node", "src/server.js"]

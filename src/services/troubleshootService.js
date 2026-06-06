@@ -1,5 +1,4 @@
-// Gemini usa estas guías como parte de su conocimiento para el prompt IDENTIFIED.
-// No son tools de Gemini — son datos estáticos que Gemini puede referenciar.
+// Guias de conocimiento para Gemini
 export const TROUBLESHOOT_GUIDES = {
   sin_internet: {
     steps: [
@@ -13,7 +12,7 @@ export const TROUBLESHOOT_GUIDES = {
   },
   internet_lento: {
     steps: [
-      '1. Visita fast.com o speedtest.net y dime los resultados.',
+      '1. Visita speedtest.net y dime los resultados.',
       '2. ¿Cuántos dispositivos están conectados ahora?',
       '3. Prueba conectar con cable directo al router (sin WiFi). ¿Mejora la velocidad?',
       '4. Apaga y enciende el router (30 segundos desconectado).',

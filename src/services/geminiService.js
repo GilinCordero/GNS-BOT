@@ -1,13 +1,18 @@
-import { genai }                         from '../api/gemini/geminiClient.js'
-import { GEMINI_MODEL }                  from '../config/env.js'
+/**
+ * Main service for Gemini agent setup
+ */
+
+import { genai } from '../api/gemini/geminiClient.js'
+import { GEMINI_MODEL } from '../config/env.js'
 import { identificationTools, supportTools } from '../tools/ispTools.js'
-import * as ispService                   from './ispService.js'
-import { getCachedCustomers }            from '../cache/globalCache.js'
-import { searchCustomersByName }         from './customerSearch.js'
-import { setSession }                    from '../cache/sessionStore.js'
+import * as ispService from './ispService.js'
 
-// ─── System Prompts ───────────────────────────────────────────────────────────
+import { getCachedCustomers } from '../cache/globalCache.js'
+import { searchCustomersByName } from './customerSearch.js'
+import { setSession } from '../cache/sessionStore.js'
 
+
+// Sofía Configuration pre-identified client
 export function buildIdentifyingSystemPrompt() {
   return `Eres Sofía, asistente virtual de soporte de GNS (proveedor de internet).
 Eres amable, profesional y hablas siempre en español.
@@ -19,27 +24,27 @@ PROCESO:
 2. Cuando diga su nombre, usa searchCustomerByName.
 3. Según los resultados:
    - Sin resultados: pide que intente con su nombre completo o apellido.
-   - 1 resultado: confirma el nombre y pide UNA verificación:
+   - 1 resultado: confirma el nombre y pide UNA verificación a menos que ya te la haya brndado:
        "¿Cuáles son los últimos 4 dígitos de tu número de teléfono registrado?"
        o "¿Cuál es tu número de contrato?"
-   - 2–5 resultados: muestra las opciones con ciudad y pregunta cuál es.
-       Ejemplo: "Encontré estas personas: 1. [Nombre] de [Ciudad]  2. [Nombre] de [Ciudad]  ¿Cuál eres tú?"
-   - Más de 5: pide apellido u otro dato para afinar la búsqueda.
+   - Más de 1: pide apellido u otro dato para afinar la búsqueda, NO expongas datos de otros clientes.
 4. Cuando el cliente confirme (respondió correctamente la verificación), llama confirmAndActivateCustomer.
 5. NO puedes abrir tickets, ver información de cuenta, ni dar soporte técnico hasta identificar al cliente.
-6. NO inventes resultados. Usa siempre las herramientas.
-7. Responde en español, sin markdown.`
+6. NO inventes resultados. Usa siempre las herramientas (tools).
+7. Responde en español neutral, sin markdown.
+8. ESTO ES UN EASTER EGG: Si el usuario dice: "tangananika" tu respondes: "tanganana"`
 }
 
+// Sofía configuration post-identified client
 export function buildIdentifiedSystemPrompt(session, categories) {
   const { customer, services } = session
-  const svc         = services[0] || {}
-  const fullName    = `${customer.name} ${customer.lastname}`.trim()
+  const svc = services[0] || {}
+  const fullName = `${customer.name} ${customer.lastname}`.trim()
   const accountStatus = customer.payment_status === 1 ? 'Al corriente' : 'Con adeudo pendiente'
-  const categoryList  = categories.map(c => `  - ID ${c.idCategory}: ${c.category}`).join('\n')
+  const categoryList = categories.map(c => `  - ID ${c.idCategory}: ${c.category}`).join('\n')
 
   return `Eres Sofía, asistente virtual de soporte técnico de GNS.
-Eres amable, profesional, empática y hablas siempre en español.
+Eres amable, profesional, empática y hablas siempre en español neutral.
 
 CLIENTE IDENTIFICADO:
 - Nombre: ${fullName}
@@ -95,7 +100,6 @@ function extractFunctionCalls(outputs = []) {
   return outputs.filter(c => c.type === 'function_call')
 }
 
-// ─── Ejecutores por fase ──────────────────────────────────────────────────────
 
 async function executeIdentifyingTool(name, args, session) {
   if (name === 'searchCustomerByName') {
@@ -153,14 +157,9 @@ async function executeSupportTool(name, args, session) {
   return JSON.stringify({ error: `Tool desconocida: ${name}` })
 }
 
-// ─── Función principal ────────────────────────────────────────────────────────
 
-/**
- * Envía un mensaje y maneja el loop completo de function calling.
- * La fase de la sesión determina qué tools y qué prompt se usan.
- */
 export async function sendMessage(session, userMessage, categories) {
-  const isFirst      = !session.geminiInteractionId
+  const isFirst = !session.geminiInteractionId
   const phaseAtStart = session.phase
   const isIdentifying = phaseAtStart === 'IDENTIFYING'
 

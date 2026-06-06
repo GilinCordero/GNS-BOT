@@ -1,9 +1,6 @@
 import { CUSTOMER_SEARCH_MAX_RESULTS } from '../config/env.js'
 
-/**
- * Normaliza para búsqueda insensible a mayúsculas, tildes y caracteres especiales.
- * Maneja el caso donde GNS almacena nombres en MAYÚSCULAS.
- */
+//Manejo de strings para normalizar busquedas que sean inputs de usuario
 function normalize(str) {
   return String(str || '')
     .toLowerCase()
@@ -13,20 +10,6 @@ function normalize(str) {
     .trim()
 }
 
-/**
- * Busca clientes por nombre en la lista cacheada.
- *
- * Lógica:
- *   - Divide el query en tokens ("jose ramirez" → ["jose", "ramirez"])
- *   - Un cliente hace match si TODOS los tokens aparecen en su nombre completo
- *   - Ejemplos:
- *       "ninive"        → matches "NINIVE ESTEVE SILLER" ✓
- *       "jose ramirez"  → matches "JOSÉ RAMÍREZ ROMERO" ✓
- *       "jose"          → puede devolver múltiples → Gemini pide apellido
- *
- * @returns Array de máximo CUSTOMER_SEARCH_MAX_RESULTS elementos,
- *          solo con los campos necesarios para identificación (sin datos sensibles completos)
- */
 export function searchCustomersByName(customers, query) {
   if (!query || query.trim().length < 2) return []
 

@@ -1,4 +1,7 @@
-// ─── Grupo 1: Identificación (phase IDENTIFYING) ─────────────────────────────
+/**
+ * Tools to tell Gemini what to do depending on the phase status
+ */
+
 export const identificationTools = [
   {
     type: 'function',
@@ -7,7 +10,7 @@ export const identificationTools = [
 Usar cuando el usuario diga cómo se llama.
 Devuelve lista de coincidencias con ID, nombre, ciudad y últimos 4 dígitos del teléfono.
 Si no hay resultados: pedir nombre completo o apellido.
-Si hay más de 5: pedir apellido u otro dato para afinar.`,
+Si hay más de 5: pedir apellido u otro dato para afinar, NO mostrar nombres encontrados por proteccion de datos.`,
     parameters: {
       type: 'object',
       properties: {
@@ -33,7 +36,6 @@ NO llamar si el cliente no ha confirmado su identidad.`,
   }
 ]
 
-// ─── Grupo 2: Soporte (phase IDENTIFIED) ─────────────────────────────────────
 export const supportTools = [
   {
     type: 'function',

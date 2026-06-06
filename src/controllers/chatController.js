@@ -1,3 +1,7 @@
+/**
+ * Handles user request and 
+ */
+
 import { refreshSession, setSession } from '../cache/sessionStore.js'
 import { sendMessage }                from '../services/geminiService.js'
 import { getCachedCategories }        from '../cache/globalCache.js'
