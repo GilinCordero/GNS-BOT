@@ -57,7 +57,7 @@ const ISPChatWidget = {
     ui = createUI(shadow, {
       theme,
       position: position || 'bottom-right',
-      agentName: agentName || 'Sofía',
+      agentName: agentName || 'Genesis',
       onSend: handleSend,
       onReconnect: handleReconnect,
     })

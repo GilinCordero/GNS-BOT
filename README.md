@@ -1,9 +1,9 @@
 # GNS-BOT
-## Meet Sofía
+## Meet Genesis
 ---
 **GNS-BOT** is a customer support **AI powered widget** for an internet provider's (GNS) CRM. Ready for deployment in the company's server, it embeds into the CRM with a single HTML tag and lets customers troubleshoot connectivity issues and manage support tickets without having to call a human agent. It acts as an intermediary between the user and GNS's API to create, manage and update tickets to speed-up network's fixing processes.
 
-**"Sofía"** will be GNS's clients personal agent, powered by Google's Gemini API, and handles the following tasks: 
+**"Genesis"** will be GNS's clients personal agent, powered by Google's Gemini API, and handles the following tasks: 
 
  + Opening and saving sessions in cache.
  + Authenticate users to begin their support process.

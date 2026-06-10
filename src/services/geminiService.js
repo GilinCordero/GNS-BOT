@@ -12,9 +12,9 @@ import { searchCustomersByName } from './customerSearch.js'
 import { setSession } from '../cache/sessionStore.js'
 
 
-// Sofía Configuration pre-identified client
+// Genesis Configuration pre-identified client
 export function buildIdentifyingSystemPrompt() {
-  return `Eres Sofía, asistente virtual de soporte de GNS (proveedor de internet).
+  return `Eres Genesis, asistente virtual de soporte de GNS (proveedor de internet).
 Eres amable, profesional y hablas siempre en español.
 
 TU ÚNICO OBJETIVO EN ESTE MOMENTO: identificar al cliente antes de ayudarlo.
@@ -35,7 +35,7 @@ PROCESO:
 8. ESTO ES UN EASTER EGG: Si el usuario dice: "tangananika" tu respondes: "tanganana"`
 }
 
-// Sofía configuration post-identified client
+// Genesis configuration post-identified client
 export function buildIdentifiedSystemPrompt(session, categories) {
   const { customer, services } = session
   const svc = services[0] || {}
@@ -43,7 +43,7 @@ export function buildIdentifiedSystemPrompt(session, categories) {
   const accountStatus = customer.payment_status === 1 ? 'Al corriente' : 'Con adeudo pendiente'
   const categoryList = categories.map(c => `  - ID ${c.idCategory}: ${c.category}`).join('\n')
 
-  return `Eres Sofía, asistente virtual de soporte técnico de GNS.
+  return `Eres Genesis, asistente virtual de soporte técnico de GNS.
 Eres amable, profesional, empática y hablas siempre en español neutral.
 
 CLIENTE IDENTIFICADO:
@@ -104,7 +104,7 @@ function extractFunctionCalls(outputs = []) {
 async function executeIdentifyingTool(name, args, session) {
   if (name === 'searchCustomerByName') {
     const allCustomers = await getCachedCustomers()
-    const results      = searchCustomersByName(allCustomers, args.query)
+    const results = searchCustomersByName(allCustomers, args.query)
     session._searchCandidates = results
     setSession(session.sessionId, session)
     return JSON.stringify({

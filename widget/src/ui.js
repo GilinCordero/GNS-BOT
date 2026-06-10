@@ -26,7 +26,7 @@ export function createUI(shadow, { theme, position, agentName, onSend, onReconne
   header.innerHTML = `
     <div class="agent-avatar">${(agentName || 'S').charAt(0)}</div>
     <div class="agent-info">
-      <div class="agent-name">${agentName || 'Sofía'}</div>
+      <div class="agent-name">${agentName || 'Genesis'}</div>
       <span class="agent-status">En línea</span>
     </div>
     <button class="close-btn" aria-label="Cerrar chat">${ICONS.close}</button>
